@@ -13,7 +13,7 @@ Embeds examples using HuggingFace models and stores them in Chroma
 
 Retrieves relevant examples to improve query accuracy
 
-🏗️ Tech Stack
+## 🏗️ Tech Stack
 LangChain for orchestration and prompt templates
 
 Gemini Pro for language understanding
@@ -24,7 +24,7 @@ Chroma for semantic retrieval
 
 HuggingFace for generating embeddings
 
-📦 What's Included
+## 📦 What's Included
 A pre-built schema and data for a library management system
 
 Example queries and answers
@@ -33,7 +33,7 @@ Few-shot examples to guide the LLM
 
 Vector store setup for semantic similarity
 
-🔮 Use Cases
+## 🔮 Use Cases
 Conversational analytics for library records
 
 Building chatbots over structured databases
