@@ -1,0 +1,24 @@
+# LangChain core and integrations
+langchain==0.3.25
+langchain-google-genai==0.0.9
+langchain-community==0.0.29
+
+# Database driver for MySQL
+pymysql==1.1.0
+sqlalchemy==2.0.30
+
+# Vector store and embeddings
+chromadb==0.4.24
+sentence-transformers==2.7.0
+
+# HuggingFace for embedding model support
+transformers==4.41.1
+torch>=2.1.0
+
+# Jupyter and development tools (optional)
+notebook
+ipykernel
+tqdm
+
+# Environment variable management (optional but useful)
+python-dotenv
