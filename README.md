@@ -2,7 +2,7 @@
 
 This project enables natural language querying of a MySQL-based library management system using LangChain, Google's Gemini Pro, and a few-shot prompting strategy. It demonstrates how to turn user questions into accurate SQL queries using a large language model and embedding-based example retrieval.
 
-# 🔍 Key Features
+## 🔍 Key Features
 Query a live MySQL database with plain English
 
 Powered by Google Gemini Pro and LangChain
