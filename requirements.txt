@@ -14,11 +14,14 @@ sqlalchemy==2.0.30
 chromadb==0.4.24
 sentence-transformers==2.7.0
 
-# HuggingFace for embedding model support
-transformers==4.40.1
+# HuggingFace support (compatible with Rust on Streamlit Cloud)
+transformers==4.36.2
+tokenizers==0.13.3
+
+# Torch for embeddings
 torch>=2.1.0
 
-# Jupyter and development tools (optional)
+# Jupyter and dev tools
 notebook
 ipykernel
 tqdm
