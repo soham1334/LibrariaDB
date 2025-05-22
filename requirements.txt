@@ -1,6 +1,6 @@
 # LangChain core and integrations
-langchain==0.3.25
-langchain-google-genai==0.0.9
+langchain>=0.3,<0.4
+langchain-google-genai>=0.0.11
 langchain-community==0.0.29
 
 # Database driver for MySQL
