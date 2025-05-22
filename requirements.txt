@@ -16,7 +16,7 @@ sentence-transformers==2.7.0
 
 # HuggingFace support (compatible with Rust on Streamlit Cloud)
 transformers==4.36.2
-tokenizers==0.13.3
+tokenizers>=0.14,<0.19
 
 # Torch for embeddings
 torch>=2.1.0
