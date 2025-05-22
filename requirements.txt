@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LangChain core and integrations
 langchain==0.3.25
 langchain-google-genai==2.1.4
@@ -22,3 +23,30 @@ tqdm
 
 # Environment variable management
 python-dotenv
+=======
+# LangChain core and integrations
+langchain==0.3.25
+langchain-google-genai==2.1.4
+langchain-community==0.3.24
+
+
+# Database driver for MySQL
+pymysql==1.1.0
+sqlalchemy==2.0.30
+
+# Vector store and embeddings
+chromadb==0.4.24
+sentence-transformers==2.7.0
+
+# HuggingFace for embedding model support
+transformers==4.41.1
+torch>=2.1.0
+
+# Jupyter and development tools (optional)
+notebook
+ipykernel
+tqdm
+
+# Environment variable management (optional but useful)
+python-dotenv
+>>>>>>> 026c80e4c0baf88e7c4200deab4e5e1e8c09c8bd
