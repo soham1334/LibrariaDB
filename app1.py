@@ -3,7 +3,7 @@
 import streamlit as st
 import base64
 
-image_file = r"C:\Users\SOHAM\Desktop\Libradb\library_img.jpg"
+image_file = "library_img.jpg"
 
 def set_background(image_file):
     with open(image_file, "rb") as file:
