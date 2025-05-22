@@ -21,15 +21,9 @@ llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-pro-latest", google_api_ke
 response = llm.invoke("What is the capital of Maharashtra?")
 print(response.content)
 
-user = "root"              # your MySQL username
-password = "SOHAM13@SQL"  # your MySQL password
-host = "localhost"        # hostname (localhost or IP address)
-port = 3306               # default MySQL port
-database = "libradb"      # name of your MySQL database
-password_encoded = quote_plus(password)
 
 db = SQLDatabase.from_uri(
-    f"mysql+pymysql://{user}:{password_encoded}@{host}/{database}"
+    st.secrets["DATABASE_URI"]
 )
 #print(db.table_info)
 
