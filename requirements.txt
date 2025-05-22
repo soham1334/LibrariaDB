@@ -26,6 +26,5 @@ notebook
 ipykernel
 tqdm
 
-# Python version
-python-3.11.8
+
 
