@@ -11,7 +11,7 @@ Powered by Google Gemini Pro and LangChain
 
 Uses few-shot learning with semantic similarity search
 
-Embeds examples using HuggingFace models and stores them in Chroma
+Embeds examples using HuggingFace models and stores them in FASSI
 
 Retrieves relevant examples to improve query accuracy
 
