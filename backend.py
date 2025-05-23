@@ -59,7 +59,7 @@ template="""
 You are an expert in translating natural language questions into SQL queries for a MySQL database.
 
 Do not use any markdown formatting like ```sql or ```.
-when asked to give all names return all the available names.
+*when asked for all names return all the available names and dont use LIMIT.
 name of book or bookname is same ,similary for author and others.
 when asked for names always return their full names.
 Only output the SQL query directly, nothing else.
@@ -86,5 +86,5 @@ ndb_chain = SQLDatabaseChain.from_llm(
 
 def Queries (question):
     response = ndb_chain.invoke({"query":question})
-    ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers. dont give anything else")
+    ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers.if more than one column is present then give column names too")
     return ans.content
