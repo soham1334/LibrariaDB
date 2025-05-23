@@ -44,6 +44,21 @@ def clean_metadata(example):
 
 cleaned_fewshots = [clean_metadata(example) for example in few_shots]
 
+# --- ADD THESE DEBUG PRINTS ---
+st.write("--- Debugging Few Shots ---")
+st.write(f"Number of few_shots examples: {len(few_shots)}")
+if few_shots:
+    st.write("First raw few_shot example:")
+    st.json(few_shots[0]) # Use st.json for better readability of dicts
+st.write(f"Number of cleaned_fewshots examples: {len(cleaned_fewshots)}")
+if cleaned_fewshots:
+    st.write("First cleaned_fewshot example:")
+    st.json(cleaned_fewshots[0]) # Print the first cleaned example
+    st.write("Keys in first cleaned_fewshot example:", cleaned_fewshots[0].keys())
+st.write("--- End Debugging Few Shots ---")
+# --- END DEBUG PRINTS ---
+
+
 to_vectorize = [" ".join(str(example.values())) for example in cleaned_fewshots]
 vectorstore = FAISS.from_texts(texts=to_vectorize, embedding=embeddings)
 #vectorstore = Chroma.from_texts(to_vectorize ,embedding = embeddings,metadatas =cleaned_fewshots)
