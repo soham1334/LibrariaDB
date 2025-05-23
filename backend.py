@@ -10,7 +10,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains.sql_database.prompt import PROMPT_SUFFIX, _mysql_prompt
 from langchain.prompts import SemanticSimilarityExampleSelector
 from langchain.prompts import FewShotPromptTemplate
-
+from few_shots import few_shots
 
 os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWigmGbmoJfwxizaPfn_LA8nAHOM8oVk"
 
@@ -60,21 +60,25 @@ example_selector = SemanticSimilarityExampleSelector(
     k=2,
 )
 
-# --- CORRECT PLACEMENT FOR DEBUG PRINTS (ACTIVE) ---
-st.write("--- Debugging Selected Examples ---")
+# --- CORRECTED & ENHANCED DEBUG PRINTS FOR SELECTED EXAMPLES ---
+st.write("--- Debugging Selected Examples (from example_selector) ---")
 try:
     # We need a dummy query to make select_examples work without a full chain run
     # This will simulate how the example_selector picks examples based on an input query.
     selected_examples_for_debug = example_selector.select_examples({"query": "How many books are there?"})
-    st.write("Selected examples from ExampleSelector:")
-    st.json(selected_examples_for_debug)
+    st.write(f"Number of selected examples: {len(selected_examples_for_debug)}")
     if selected_examples_for_debug:
-        st.write("Keys in first selected example:")
-        st.write(selected_examples_for_debug[0].keys())
+        st.write("Selected examples from ExampleSelector:")
+        for i, ex in enumerate(selected_examples_for_debug):
+            st.write(f"Selected example {i}:")
+            st.json(ex)
+            st.write(f"Keys in selected example {i}:", ex.keys())
+    else:
+        st.write("No examples were selected by example_selector.")
 except Exception as e:
     st.error(f"Error selecting examples for debug: {e}")
 st.write("--- End Debugging Selected Examples ---")
-# --- END CORRECT PLACEMENT ---
+# --- END ENHANCED DEBUG PRINTS ---
 
 example_prompt = PromptTemplate(
     input_variables = ['Question','SQLQuery','SQLResult','Answer'],
@@ -110,9 +114,6 @@ ndb_chain = SQLDatabaseChain.from_llm(
 
 
 def Queries (question):
-    # This is the correct indentation for the lines inside the function
     response = ndb_chain.invoke({"query":question})
-    # The debug prints for selected_examples have been moved outside the function,
-    # as the error happens during ndb_chain.invoke.
     ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers. dont give anything else")
     return ans.content
