@@ -24,7 +24,7 @@ print(response.content)
 
 
 db = SQLDatabase.from_uri(
-    st.secrets["DATABASE_URI"]
+    st.secrets["database"]["uri"]
 )
 #print(db.table_info)
 
