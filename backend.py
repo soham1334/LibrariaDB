@@ -19,8 +19,7 @@ os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWigmGbmoJfwxizaPfn_LA8nAHOM8oVk"
 
 llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-pro-latest", google_api_key=os.environ["GOOGLE_API_KEY"])
 
-response = llm.invoke("What is the capital of Maharashtra?")
-print(response.content)
+
 
 
 db = SQLDatabase.from_uri(
