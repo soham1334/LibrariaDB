@@ -44,19 +44,19 @@ def clean_metadata(example):
 
 cleaned_fewshots = [clean_metadata(example) for example in few_shots]
 
-# --- ADD THESE DEBUG PRINTS ---
-st.write("--- Debugging Few Shots ---")
-st.write(f"Number of few_shots examples: {len(few_shots)}")
-if few_shots:
-    st.write("First raw few_shot example:")
-    st.json(few_shots[0]) # Use st.json for better readability of dicts
-st.write(f"Number of cleaned_fewshots examples: {len(cleaned_fewshots)}")
-if cleaned_fewshots:
-    st.write("First cleaned_fewshot example:")
-    st.json(cleaned_fewshots[0]) # Print the first cleaned example
-    st.write("Keys in first cleaned_fewshot example:", cleaned_fewshots[0].keys())
-st.write("--- End Debugging Few Shots ---")
-# --- END DEBUG PRINTS ---
+# # --- ADD THESE DEBUG PRINTS ---
+# st.write("--- Debugging Few Shots ---")
+# st.write(f"Number of few_shots examples: {len(few_shots)}")
+# if few_shots:
+#     st.write("First raw few_shot example:")
+#     st.json(few_shots[0]) # Use st.json for better readability of dicts
+# st.write(f"Number of cleaned_fewshots examples: {len(cleaned_fewshots)}")
+# if cleaned_fewshots:
+#     st.write("First cleaned_fewshot example:")
+#     st.json(cleaned_fewshots[0]) # Print the first cleaned example
+#     st.write("Keys in first cleaned_fewshot example:", cleaned_fewshots[0].keys())
+# st.write("--- End Debugging Few Shots ---")
+# # --- END DEBUG PRINTS ---
 
 
 to_vectorize = [" ".join(str(example.values())) for example in cleaned_fewshots]
@@ -66,6 +66,23 @@ example_selector = SemanticSimilarityExampleSelector(
     vectorstore = vectorstore,
     k=2,
 )
+
+# --- CORRECT PLACEMENT FOR DEBUG PRINTS ---
+st.write("--- Debugging Selected Examples ---")
+try:
+    # We need a dummy query to make select_examples work without a full chain run
+    # This will simulate how the example_selector picks examples based on an input query.
+    selected_examples_for_debug = example_selector.select_examples({"query": "How many books are there?"})
+    st.write("Selected examples from ExampleSelector:")
+    st.json(selected_examples_for_debug)
+    if selected_examples_for_debug:
+        st.write("Keys in first selected example:")
+        st.write(selected_examples_for_debug[0].keys())
+except Exception as e:
+    st.error(f"Error selecting examples for debug: {e}")
+st.write("--- End Debugging Selected Examples ---")
+# --- END CORRECT PLACEMENT ---
+
 example_prompt = PromptTemplate(
     input_variables = ['Question','SQLQuery','SQLResult','Answer'],
     template = "\nQuestion: {Question}\nSQLQuery: {SQLQuery}\nSQLResult: {SQLResult}\nAnswer: {Answer}\n",
@@ -103,12 +120,12 @@ def Queries (question):
  
  response = ndb_chain.invoke({"query":question})
  st.write("--- Debugging Selected Examples ---")
-    st.write(f"Number of selected examples: {len(selected_examples)}")
+ st.write(f"Number of selected examples: {len(selected_examples)}")
     for i, ex in enumerate(selected_examples):
         st.write(f"Selected example {i}:")
         st.json(ex)
         st.write(f"Keys in selected example {i}:", ex.keys())
-    st.write("--- End Debugging Selected Examples ---")   
+ st.write("--- End Debugging Selected Examples ---")   
  ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers. dont give anything else")
  return ans.content
 
