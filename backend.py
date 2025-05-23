@@ -9,7 +9,7 @@ from langchain.prompts import PromptTemplate
 from langchain_experimental.sql import SQLDatabaseChain
 from langchain_community.embeddings import HuggingFaceEmbeddings
 #from langchain_community.vectorstores import Chroma
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.chains.sql_database.prompt import PROMPT_SUFFIX ,_mysql_prompt
 from langchain.prompts import SemanticSimilarityExampleSelector
 from langchain.prompts import PromptTemplate
