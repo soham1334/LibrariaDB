@@ -13,7 +13,7 @@ from langchain.prompts import FewShotPromptTemplate
 from few_shots import few_shots
 
 
-os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+os.environ["GOOGLE_API_KEY"] = st.secrets["database"]["GOOGLE_API_KEY"]
 llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-pro-latest", google_api_key=os.environ["GOOGLE_API_KEY"])
 
 
