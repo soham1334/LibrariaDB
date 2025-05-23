@@ -102,6 +102,13 @@ ndb_chain = SQLDatabaseChain.from_llm(
 def Queries (question):
  
  response = ndb_chain.invoke({"query":question})
+ st.write("--- Debugging Selected Examples ---")
+    st.write(f"Number of selected examples: {len(selected_examples)}")
+    for i, ex in enumerate(selected_examples):
+        st.write(f"Selected example {i}:")
+        st.json(ex)
+        st.write(f"Keys in selected example {i}:", ex.keys())
+    st.write("--- End Debugging Selected Examples ---")   
  ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers. dont give anything else")
  return ans.content
 
