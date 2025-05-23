@@ -86,5 +86,5 @@ ndb_chain = SQLDatabaseChain.from_llm(
 
 def Queries (question):
     response = ndb_chain.invoke({"query":question})
-    ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers.if more than one column is present then give column names too")
+    ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers.if more than one column is present then give column names too and dont return in inverted commas")
     return ans.content
