@@ -89,6 +89,6 @@ def Queries (question):
     prompt = """Just give clean answers like names or numbers.
             If more than one column is present, include column names too.
             Do not return values in quotation marks.
-            If result is empty, answer appropriately according to the question (e.g., NO / Invalid / Not Applicable / None / etc)."""
+            If result/response is empty, answer appropriately according to the question (e.g., NO / Invalid / Not Applicable / None / etc)."""
     ans = llm.invoke(f"{question}: {response1} ({prompt})")
     return ans.content
