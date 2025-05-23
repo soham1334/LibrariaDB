@@ -7,7 +7,7 @@ from langchain_community.utilities import SQLDatabase
 from urllib.parse import quote_plus
 from langchain.prompts import PromptTemplate
 from langchain_experimental.sql import SQLDatabaseChain
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 #from langchain_community.vectorstores import Chroma
 from langchain.vectorstores import FAISS
 from langchain.chains.sql_database.prompt import PROMPT_SUFFIX ,_mysql_prompt
