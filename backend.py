@@ -1,5 +1,3 @@
-
-#from langchain.llms import GooglePalm
 import streamlit as st
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -8,19 +6,15 @@ from urllib.parse import quote_plus
 from langchain.prompts import PromptTemplate
 from langchain_experimental.sql import SQLDatabaseChain
 from langchain_community.embeddings import HuggingFaceEmbeddings
-#from langchain_community.vectorstores import Chroma
 from langchain_community.vectorstores import FAISS
-from langchain.chains.sql_database.prompt import PROMPT_SUFFIX ,_mysql_prompt
+from langchain.chains.sql_database.prompt import PROMPT_SUFFIX, _mysql_prompt
 from langchain.prompts import SemanticSimilarityExampleSelector
-from langchain.prompts import PromptTemplate
 from langchain.prompts import FewShotPromptTemplate
 
 
 os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWigmGbmoJfwxizaPfn_LA8nAHOM8oVk"
 
 llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-pro-latest", google_api_key=os.environ["GOOGLE_API_KEY"])
-
-
 
 
 db = SQLDatabase.from_uri(
@@ -44,30 +38,29 @@ def clean_metadata(example):
 
 cleaned_fewshots = [clean_metadata(example) for example in few_shots]
 
-# # --- ADD THESE DEBUG PRINTS ---
-# st.write("--- Debugging Few Shots ---")
-# st.write(f"Number of few_shots examples: {len(few_shots)}")
-# if few_shots:
-#     st.write("First raw few_shot example:")
-#     st.json(few_shots[0]) # Use st.json for better readability of dicts
-# st.write(f"Number of cleaned_fewshots examples: {len(cleaned_fewshots)}")
-# if cleaned_fewshots:
-#     st.write("First cleaned_fewshot example:")
-#     st.json(cleaned_fewshots[0]) # Print the first cleaned example
-#     st.write("Keys in first cleaned_fewshot example:", cleaned_fewshots[0].keys())
-# st.write("--- End Debugging Few Shots ---")
-# # --- END DEBUG PRINTS ---
+# These debug prints are good to keep for initial data check
+st.write("--- Debugging Few Shots ---")
+st.write(f"Number of few_shots examples: {len(few_shots)}")
+if few_shots:
+    st.write("First raw few_shot example:")
+    st.json(few_shots[0])
+st.write(f"Number of cleaned_fewshots examples: {len(cleaned_fewshots)}")
+if cleaned_fewshots:
+    st.write("First cleaned_fewshot example:")
+    st.json(cleaned_fewshots[0])
+    st.write("Keys in first cleaned_fewshot example:", cleaned_fewshots[0].keys())
+st.write("--- End Debugging Few Shots ---")
 
 
 to_vectorize = [" ".join(str(example.values())) for example in cleaned_fewshots]
 vectorstore = FAISS.from_texts(texts=to_vectorize, embedding=embeddings)
-#vectorstore = Chroma.from_texts(to_vectorize ,embedding = embeddings,metadatas =cleaned_fewshots)
+
 example_selector = SemanticSimilarityExampleSelector(
     vectorstore = vectorstore,
     k=2,
 )
 
-# --- CORRECT PLACEMENT FOR DEBUG PRINTS ---
+# --- CORRECT PLACEMENT FOR DEBUG PRINTS (ACTIVE) ---
 st.write("--- Debugging Selected Examples ---")
 try:
     # We need a dummy query to make select_examples work without a full chain run
@@ -87,7 +80,7 @@ example_prompt = PromptTemplate(
     input_variables = ['Question','SQLQuery','SQLResult','Answer'],
     template = "\nQuestion: {Question}\nSQLQuery: {SQLQuery}\nSQLResult: {SQLResult}\nAnswer: {Answer}\n",
 )
-   
+    
 template="""
 You are an expert in translating natural language questions into SQL queries for a MySQL database.
 
@@ -117,15 +110,9 @@ ndb_chain = SQLDatabaseChain.from_llm(
 
 
 def Queries (question):
- 
- response = ndb_chain.invoke({"query":question})
- st.write("--- Debugging Selected Examples ---")
- st.write(f"Number of selected examples: {len(selected_examples)}")
-    for i, ex in enumerate(selected_examples):
-        st.write(f"Selected example {i}:")
-        st.json(ex)
-        st.write(f"Keys in selected example {i}:", ex.keys())
- st.write("--- End Debugging Selected Examples ---")   
- ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers. dont give anything else")
- return ans.content
-
+    # This is the correct indentation for the lines inside the function
+    response = ndb_chain.invoke({"query":question})
+    # The debug prints for selected_examples have been moved outside the function,
+    # as the error happens during ndb_chain.invoke.
+    ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers. dont give anything else")
+    return ans.content
