@@ -8,7 +8,8 @@ from urllib.parse import quote_plus
 from langchain.prompts import PromptTemplate
 from langchain_experimental.sql import SQLDatabaseChain
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
+#from langchain_community.vectorstores import Chroma
+from langchain.vectorstores import FAISS
 from langchain.chains.sql_database.prompt import PROMPT_SUFFIX ,_mysql_prompt
 from langchain.prompts import SemanticSimilarityExampleSelector
 from langchain.prompts import PromptTemplate
@@ -44,7 +45,8 @@ def clean_metadata(example):
 cleaned_fewshots = [clean_metadata(example) for example in few_shots]
 
 to_vectorize = [" ".join(str(example.values())) for example in cleaned_fewshots]
-vectorstore = Chroma.from_texts(to_vectorize ,embedding = embeddings,metadatas =cleaned_fewshots)
+vectorstore = FAISS.from_texts(texts=to_vectorize, embedding=embeddings)
+#vectorstore = Chroma.from_texts(to_vectorize ,embedding = embeddings,metadatas =cleaned_fewshots)
 example_selector = SemanticSimilarityExampleSelector(
     vectorstore = vectorstore,
     k=2,
