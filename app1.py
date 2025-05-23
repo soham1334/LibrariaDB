@@ -54,13 +54,10 @@ st.markdown("""
 st.markdown("<h3>Question:</h3>", unsafe_allow_html=True)
 Question = st.text_input("", placeholder="Write here.....")
 
-@st.cache_data
-def load_data():
-    from backend import Queries
 
-    return Queries
+from backend import Queries
 
-Queries = load_data()
+
 if Question:
     response = Queries(Question)
     formatted_response = response.replace('\n', '<br>') 
