@@ -53,7 +53,7 @@ st.write("--- End Debugging Few Shots ---")
 
 
 to_vectorize = [" ".join(str(example.values())) for example in cleaned_fewshots]
-vectorstore = FAISS.from_texts(texts=to_vectorize, embedding=embeddings)
+vectorstore = FAISS.from_texts(texts=to_vectorize, embedding=embeddings, metadatas=cleaned_fewshots)
 
 example_selector = SemanticSimilarityExampleSelector(
     vectorstore = vectorstore,
