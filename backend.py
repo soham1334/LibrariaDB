@@ -90,5 +90,5 @@ def Queries (question):
             If more than one column is present, include column names too.
             Do not return values in quotation marks.
             If result/response is empty, answer appropriately according to the question (e.g., NO / Invalid / Not Applicable / None / etc)."""
-    ans = llm.invoke(f"{question}: {response1} ({prompt})")
+    ans = llm.invoke(f"{question}: {response} ({prompt})")
     return ans.content
