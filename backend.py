@@ -38,18 +38,6 @@ def clean_metadata(example):
 
 cleaned_fewshots = [clean_metadata(example) for example in few_shots]
 
-# These debug prints are good to keep for initial data check
-st.write("--- Debugging Few Shots ---")
-st.write(f"Number of few_shots examples: {len(few_shots)}")
-if few_shots:
-    st.write("First raw few_shot example:")
-    st.json(few_shots[0])
-st.write(f"Number of cleaned_fewshots examples: {len(cleaned_fewshots)}")
-if cleaned_fewshots:
-    st.write("First cleaned_fewshot example:")
-    st.json(cleaned_fewshots[0])
-    st.write("Keys in first cleaned_fewshot example:", cleaned_fewshots[0].keys())
-st.write("--- End Debugging Few Shots ---")
 
 
 to_vectorize = [" ".join(str(example.values())) for example in cleaned_fewshots]
@@ -60,25 +48,7 @@ example_selector = SemanticSimilarityExampleSelector(
     k=2,
 )
 
-# --- CORRECTED & ENHANCED DEBUG PRINTS FOR SELECTED EXAMPLES ---
-st.write("--- Debugging Selected Examples (from example_selector) ---")
-try:
-    # We need a dummy query to make select_examples work without a full chain run
-    # This will simulate how the example_selector picks examples based on an input query.
-    selected_examples_for_debug = example_selector.select_examples({"query": "How many books are there?"})
-    st.write(f"Number of selected examples: {len(selected_examples_for_debug)}")
-    if selected_examples_for_debug:
-        st.write("Selected examples from ExampleSelector:")
-        for i, ex in enumerate(selected_examples_for_debug):
-            st.write(f"Selected example {i}:")
-            st.json(ex)
-            st.write(f"Keys in selected example {i}:", ex.keys())
-    else:
-        st.write("No examples were selected by example_selector.")
-except Exception as e:
-    st.error(f"Error selecting examples for debug: {e}")
-st.write("--- End Debugging Selected Examples ---")
-# --- END ENHANCED DEBUG PRINTS ---
+
 
 example_prompt = PromptTemplate(
     input_variables = ['Question','SQLQuery','SQLResult','Answer'],
