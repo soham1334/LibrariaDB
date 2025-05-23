@@ -1,6 +1,8 @@
 # Environment variable management
 python-dotenv
 
+streamlit>=1.0.0
+
 # LangChain core and integrations
 langchain==0.3.25
 langchain-google-genai==2.1.4
