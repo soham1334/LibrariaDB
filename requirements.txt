@@ -7,7 +7,7 @@ streamlit>=1.0.0
 langchain==0.3.25
 langchain-google-genai==2.1.4
 langchain-community==0.3.24
-# Removed langchain-experimental due to version conflicts. Add a newer, compatible version if essential.
+langchain-experimental>=0.3.0 
 langchain-huggingface
 
 # Database driver for MySQL
@@ -21,7 +21,7 @@ sentence-transformers==2.7.0
 
 # HuggingFace support (compatible with Rust on Streamlit Cloud)
 transformers>=4.39.0
-tokenizers>=0.19.1  # <--- CHANGED THIS LINE
+tokenizers>=0.19.1
 
 # Torch for embeddings
 torch>=2.1.0
