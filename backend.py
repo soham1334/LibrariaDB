@@ -12,9 +12,9 @@ from langchain.prompts import SemanticSimilarityExampleSelector
 from langchain.prompts import FewShotPromptTemplate
 from few_shots import few_shots
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWigmGbmoJfwxizaPfn_LA8nAHOM8oVk"
 
-llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-pro-latest", google_api_key=os.environ["GOOGLE_API_KEY"])
+
+llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-pro-latest", google_api_key=st.secrets["GOOGLE_API_KEY"])
 
 
 db = SQLDatabase.from_uri(
