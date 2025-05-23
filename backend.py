@@ -86,5 +86,9 @@ ndb_chain = SQLDatabaseChain.from_llm(
 
 def Queries (question):
     response = ndb_chain.invoke({"query":question})
-    ans = llm.invoke(f"{question}: {response} (just give me clean answer like names or numbers.if more than one column is present then give column names too and dont return in inverted commas")
+    prompt = """Just give clean answers like names or numbers.
+            If more than one column is present, include column names too.
+            Do not return values in quotation marks.
+            If result is empty, answer appropriately according to the question (e.g., NO / Invalid / Not Applicable / None / etc)."""
+    ans = llm.invoke(f"{question}: {response1} ({prompt})")
     return ans.content
