@@ -2,3 +2,4 @@ build-essential
 rustc
 cargo
 python3-distutils
+python3-lib2to3
