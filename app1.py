@@ -52,7 +52,7 @@ st.markdown("""
 
 
 st.markdown("<h4>What would you like to do?</h4>", unsafe_allow_html=True)
-Question = st.text_input("", placeholder="Write here.....")
+Question = st.text_input("", placeholder="e.g. Ask about total users, books, authors, or get their names and details – feel free to explore anything!")
 
 
 from backend import Queries
